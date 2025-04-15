@@ -19,4 +19,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="backgroundArt.PNG">
+      <Filter>Source Files</Filter>
+    </Image>
+    <Image Include="forwardSprite.png">
+      <Filter>Source Files</Filter>
+    </Image>
+  </ItemGroup>
 </Project>
