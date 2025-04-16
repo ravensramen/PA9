@@ -141,6 +141,10 @@
     <Image Include="backgroundArt.PNG" />
     <Image Include="forwardSprite.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Media Include="jump.wav" />
+    <Media Include="misato.mp3" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

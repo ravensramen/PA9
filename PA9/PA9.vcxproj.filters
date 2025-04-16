@@ -27,4 +27,12 @@
       <Filter>Source Files</Filter>
     </Image>
   </ItemGroup>
+  <ItemGroup>
+    <Media Include="misato.mp3">
+      <Filter>Source Files</Filter>
+    </Media>
+    <Media Include="jump.wav">
+      <Filter>Source Files</Filter>
+    </Media>
+  </ItemGroup>
 </Project>
