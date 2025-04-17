@@ -1,6 +1,5 @@
-#include <SFML/Graphics.hpp>
-#include <SFML/Audio.hpp>//for sweet tunes + sound effects
-#include <SFML/System.hpp> //need this for time mechanics
+#include "header.h"
+#include "clouds.h"
 
 //create object class for cloud obstacles (with a derived class of more complex obstacles)
 //^^similar, but with space obstacles 2
@@ -17,11 +16,11 @@ int main()
     sf::Sprite backgroundArtSprite(backgroundArt);
   
     //set sprite player image
-    sf::Texture forwardTexture, leftTexture, rightTexture;
+    sf::Texture forwardTexture, leftTexture, rightTexture, deadTexture;
 
     if (!forwardTexture.loadFromFile("forwardSprite.png") ||
          !leftTexture.loadFromFile("leftSprite.png") ||
-         !rightTexture.loadFromFile("rightSprite.png")) {
+         !rightTexture.loadFromFile("rightSprite.png")||!deadTexture.loadFromFile("deadSprite.png")) {
          return -1; // one or more files didn't load
     }
 
@@ -47,6 +46,24 @@ int main()
     float gravity = 800.0f; //higher -> fall down faster
     float jumpStrength = -375.f; //lower -> jump higher 
 
+
+    //-----------------------------------platform visuals-----------------------------------
+    sf::RectangleShape platformVis({ 35.f, 20.f });
+    sf::Vector2f platformVisPos({ -35.f, 795.f });//the platform itself should be at the vertical middle
+    platformVis.setFillColor(sf::Color().Blue); //this will be replaced with a texture
+    platformVis.setPosition(platformVisPos);
+    float platformVisVelocityX = .04; //only moving horizontally for now
+    float platformVisVelocityY = 0;
+    //----------------------------------platform collision----------------------------------
+    //platform rectangle base (this is the smallest "spawnable" platform)
+    sf::RectangleShape platform({ 35.f, 1.f }); //(this is the smallest "spawnable" platform)(ideally only the x value will be changed)
+    sf::Vector2f platformPos({ -35.f, 805.f });//should be in the vertical middle of the visual
+    platform.setFillColor(sf::Color().Cyan); //this will be replaced with transparent color
+    platform.setPosition(platformPos); //lowest platform (highest is at 485.f)
+    float platformVelocityX = .04; //only moving horizontally for now
+    float platformVelocityY = 0;
+
+
     sf::Clock clock;
 
     sf::Music backgroundMusic; //add more songs! and sound effects
@@ -54,7 +71,7 @@ int main()
         return -1; // error loading music file
     }
     backgroundMusic.setLooping(true); // loop the music
-    backgroundMusic.setVolume(20.f); // optional
+    backgroundMusic.setVolume(15.f); // optional
     backgroundMusic.play();
 
     //jump sound
@@ -74,6 +91,14 @@ int main()
     float maxJumpHeight = 820.f; // initial ground height
     float deathFallThreshold = 200.f; // distance that causes death 
     bool isDead = false;
+
+
+    //std::vector<CloudVehicle> clouds;
+
+    //// Example: spawn a few clouds at different positions/speeds
+    //clouds.emplace_back(sf::Vector2f(100.f, 700.f), 60.f);
+    //clouds.emplace_back(sf::Vector2f(300.f, 600.f), 40.f);
+    //clouds.emplace_back(sf::Vector2f(500.f, 500.f), 70.f);
 
     while (window.isOpen())
     {
@@ -105,6 +130,9 @@ int main()
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::Down)) {
             characterForwardSprite.move(moveDown);
+        }
+        if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::Left)&& !sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::Right)) {
+            characterForwardSprite.setTexture(forwardTexture);
         }
 
         //code to trigger jumping mechanic from static initial position
@@ -139,9 +167,58 @@ int main()
             }
         }
 
+        //----------------------------------platform visuals------------------------------------
+
+//bouncing horizontally off walls
+//if (platformVisPos.x < 0.f || platformVisPos.x > 665.f)
+//{
+//    platformVisVelocityX *= -1;
+//}
+
+//resetting to the left side of the screen
+        if (platformVisPos.x > 700.f)
+        {
+            platformVisPos.x = -35.f;
+        }
+
+        platformVisPos.x += platformVisVelocityX;
+        platformVis.setPosition(platformVisPos);
+        //---------------------------------platform collision-------------------------------------
+
+        //bouncing horizontally off walls
+        //if (platformPos.x < 0.f || platformPos.x > 665.f)
+        //{
+        //    platformVelocityX *= -1;
+        //}
+
+        //resetting to the left side of the screen
+        if (platformPos.x > 700.f)
+        {
+            platformPos.x = -35.f;
+        }
+
+        platformPos.x += platformVelocityX;
+        platform.setPosition(platformPos);
+        //-----------------------------character platform interaction---------------------------
+
+        //if the character's base is above the platform top (must be cast as int to check correctly [took me forever for me to realize (q_q) ])
+        if ((int)characterForwardSprite.getPosition().y + 52 == platformPos.y - 1)
+        {
+            //if the character's center is within the width of the platform
+            if (platform.getPosition().x < characterForwardSprite.getPosition().x + 21.f && characterForwardSprite.getPosition().x + 21.f < (platform.getPosition().x + platform.getSize().x))
+            {
+                isJumping = false; //without this the character falls through the platform after about 1 second
+                characterForwardSprite.setPosition(sf::Vector2f((characterForwardSprite.getPosition().x) + platformVelocityX, platformPos.y - 53.f));
+            }
+            else
+            {
+                isJumping = true; //without this the character just hangs out at the level of the platform even when they should fall
+            }
+        }
+
         if (isDead) {
             //logic to save score and exit gameplay
-
+            characterForwardSprite.setTexture(deadTexture);
             //window.close();
         }
 
@@ -162,8 +239,14 @@ int main()
 
         characterForwardSprite.setPosition(pos);
 
+
         window.clear();
         window.draw(backgroundArtSprite);
+
+        window.draw(platformVis); //the part of the platform that will be visible 
+        window.draw(platform); //the part of the platform that will be invisible (collision)
+
+
         window.draw(characterForwardSprite); //character sprite called on top of background
      
         window.display();

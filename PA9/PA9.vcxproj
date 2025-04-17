@@ -140,10 +140,15 @@
   <ItemGroup>
     <Image Include="backgroundArt.PNG" />
     <Image Include="forwardSprite.png" />
+    <Image Include="mediumCloud.png" />
   </ItemGroup>
   <ItemGroup>
     <Media Include="jump.wav" />
     <Media Include="misato.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="clouds.h" />
+    <ClInclude Include="header.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

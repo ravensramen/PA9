@@ -26,6 +26,9 @@
     <Image Include="forwardSprite.png">
       <Filter>Source Files</Filter>
     </Image>
+    <Image Include="mediumCloud.png">
+      <Filter>Source Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Media Include="misato.mp3">
@@ -34,5 +37,13 @@
     <Media Include="jump.wav">
       <Filter>Source Files</Filter>
     </Media>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="clouds.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="header.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
