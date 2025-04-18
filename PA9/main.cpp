@@ -1,5 +1,4 @@
 #include "header.h"
-#include "cloudPlatform.h"
 
 //create object class for cloud obstacles (with a derived class of more complex obstacles)
 //^^similar, but with space obstacles 2
@@ -7,21 +6,21 @@
 int main()
 {
     sf::RenderWindow window(sf::VideoMode({ 700, 900 }), "wip");
- 
-    
+
+
     sf::Texture backgroundArt;
     if (!backgroundArt.loadFromFile("backgroundart.png")) {
         return -1; //return -1 if background image fails
     }
     sf::Sprite backgroundArtSprite(backgroundArt);
-  
+
     //set sprite player image
     sf::Texture forwardTexture, leftTexture, rightTexture, deadTexture;
 
     if (!forwardTexture.loadFromFile("forwardSprite.png") ||
-         !leftTexture.loadFromFile("leftSprite.png") ||
-         !rightTexture.loadFromFile("rightSprite.png")||!deadTexture.loadFromFile("deadSprite.png")) {
-         return -1; // one or more files didn't load
+        !leftTexture.loadFromFile("leftSprite.png") ||
+        !rightTexture.loadFromFile("rightSprite.png") || !deadTexture.loadFromFile("deadSprite.png")) {
+        return -1; // one or more files didn't load
     }
 
     //set vector position for start
@@ -36,7 +35,7 @@ int main()
     //code for key press movement
     float movementSpeed = .2f;
     sf::Vector2f moveLeft(-movementSpeed, 0); //vector to modify sprite to the left
-    sf::Vector2f moveRight(+movementSpeed, 0);  
+    sf::Vector2f moveRight(+movementSpeed, 0);
     sf::Vector2f moveUp(0, -movementSpeed);
     sf::Vector2f moveDown(0, +movementSpeed);
 
@@ -96,24 +95,16 @@ int main()
     float checkpointY = 375.f; // example value: lowest allowed position
     bool checkpointReached = false;
 
-    std::vector<CloudPlatform> cloudPlatforms;
-    cloudPlatforms.emplace_back(sf::Vector2f(0.f, 795.f), 40.f);
-    cloudPlatforms.emplace_back(sf::Vector2f(-200.f, 755.f), 60.f);
-    cloudPlatforms.emplace_back(sf::Vector2f(-400.f, 715.f), 50.f);
-    cloudPlatforms.emplace_back(sf::Vector2f(-600.f, 675.f), 45.f);
-
 
     while (window.isOpen())
     {
 
-        float dt = clock.restart().asSeconds(); //for cloud logic
-
         //TIME MECHANICS (to slow jump)
-      
-        //sf::Time deltaTime = clock.restart();
-        //float dt = deltaTime.asSeconds();
 
-        
+        sf::Time deltaTime = clock.restart();
+        float dt = deltaTime.asSeconds();
+
+
         while (const std::optional event = window.pollEvent()) //this while loop handles closing window (i think...)
         {
             if (event->is<sf::Event::Closed>())
@@ -124,7 +115,7 @@ int main()
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::Left)) {
             characterForwardSprite.move(moveLeft);
             characterForwardSprite.setTexture(leftTexture);
-          
+
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::Right)) {
             characterForwardSprite.move(moveRight);
@@ -136,7 +127,7 @@ int main()
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::Down)) {
             characterForwardSprite.move(moveDown);
         }
-        if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::Left)&& !sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::Right)) {
+        if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::Left) && !sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::Right)) {
             characterForwardSprite.setTexture(forwardTexture);
         }
 
@@ -181,38 +172,6 @@ int main()
                 isJumping = false;
             }
         }
-        ////////UPDATED PLATFORM WITH CLASS
-
-
-                // Platform updates
-        for (auto& platform : cloudPlatforms)
-            platform.update(dt);
-
-        // Platform collision
-        bool onAPlatform = false;
-        for (auto& platform : cloudPlatforms) {
-            const sf::RectangleShape& coll = platform.getCollisionShape();
-            sf::Vector2f platformPos = coll.getPosition();
-            sf::Vector2f charPos = characterForwardSprite.getPosition();
-       
-
-            if ((int)charPos.y + 52 == platformPos.y - 1) {
-                if (charPos.x + 21.f > platformPos.x &&
-                    charPos.x + 21.f < platformPos.x + coll.getSize().x) {
-
-                    onAPlatform = true;
-                    isJumping = false;
-                    characterForwardSprite.setPosition({ charPos.x + platform.getVelocity() * dt, platformPos.y - 53.f });
-                    break;
-                }
-            }
-        }
-        if (!onAPlatform && !isJumping) isJumping = true;
-
-
-
-
-
 
         //----------------------------------platform visuals------------------------------------
 
@@ -282,7 +241,7 @@ int main()
             characterForwardSprite.setPosition(pos);
         }
 
-        
+
         auto bounds = characterForwardSprite.getGlobalBounds();
 
         // INSURE SPRITE CANT LEAVE CONSOLE
@@ -303,11 +262,12 @@ int main()
         window.clear();
         window.draw(backgroundArtSprite);
 
-        for (auto& platform : cloudPlatforms)
-            platform.draw(window);
+        window.draw(platformVis); //the part of the platform that will be visible 
+        window.draw(platform); //the part of the platform that will be invisible (collision)
+
 
         window.draw(characterForwardSprite); //character sprite called on top of background
-     
+
         window.display();
     }
 }
