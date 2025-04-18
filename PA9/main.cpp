@@ -1,5 +1,5 @@
 #include "header.h"
-#include "clouds.h"
+#include "cloudPlatform.h"
 
 //create object class for cloud obstacles (with a derived class of more complex obstacles)
 //^^similar, but with space obstacles 2
@@ -96,14 +96,22 @@ int main()
     float checkpointY = 375.f; // example value: lowest allowed position
     bool checkpointReached = false;
 
+    std::vector<CloudPlatform> cloudPlatforms;
+    cloudPlatforms.emplace_back(sf::Vector2f(0.f, 795.f), 40.f);
+    cloudPlatforms.emplace_back(sf::Vector2f(-200.f, 755.f), 60.f);
+    cloudPlatforms.emplace_back(sf::Vector2f(-400.f, 715.f), 50.f);
+    cloudPlatforms.emplace_back(sf::Vector2f(-600.f, 675.f), 45.f);
+
 
     while (window.isOpen())
     {
 
+        float dt = clock.restart().asSeconds(); //for cloud logic
+
         //TIME MECHANICS (to slow jump)
       
-        sf::Time deltaTime = clock.restart();
-        float dt = deltaTime.asSeconds();
+        //sf::Time deltaTime = clock.restart();
+        //float dt = deltaTime.asSeconds();
 
         
         while (const std::optional event = window.pollEvent()) //this while loop handles closing window (i think...)
@@ -173,6 +181,38 @@ int main()
                 isJumping = false;
             }
         }
+        ////////UPDATED PLATFORM WITH CLASS
+
+
+                // Platform updates
+        for (auto& platform : cloudPlatforms)
+            platform.update(dt);
+
+        // Platform collision
+        bool onAPlatform = false;
+        for (auto& platform : cloudPlatforms) {
+            const sf::RectangleShape& coll = platform.getCollisionShape();
+            sf::Vector2f platformPos = coll.getPosition();
+            sf::Vector2f charPos = characterForwardSprite.getPosition();
+       
+
+            if ((int)charPos.y + 52 == platformPos.y - 1) {
+                if (charPos.x + 21.f > platformPos.x &&
+                    charPos.x + 21.f < platformPos.x + coll.getSize().x) {
+
+                    onAPlatform = true;
+                    isJumping = false;
+                    characterForwardSprite.setPosition({ charPos.x + platform.getVelocity() * dt, platformPos.y - 53.f });
+                    break;
+                }
+            }
+        }
+        if (!onAPlatform && !isJumping) isJumping = true;
+
+
+
+
+
 
         //----------------------------------platform visuals------------------------------------
 
@@ -263,9 +303,8 @@ int main()
         window.clear();
         window.draw(backgroundArtSprite);
 
-        window.draw(platformVis); //the part of the platform that will be visible 
-        window.draw(platform); //the part of the platform that will be invisible (collision)
-
+        for (auto& platform : cloudPlatforms)
+            platform.draw(window);
 
         window.draw(characterForwardSprite); //character sprite called on top of background
      

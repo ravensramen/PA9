@@ -39,7 +39,7 @@
     </Media>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="clouds.h">
+    <ClInclude Include="cloudPlatform.h">
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="header.h">

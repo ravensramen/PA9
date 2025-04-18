@@ -147,7 +147,7 @@
     <Media Include="misato.mp3" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="clouds.h" />
+    <ClInclude Include="cloudPlatform.h" />
     <ClInclude Include="header.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
