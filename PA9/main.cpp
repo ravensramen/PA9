@@ -34,7 +34,7 @@ int main()
 
 
     //code for key press movement
-    float movementSpeed = .25f;
+    float movementSpeed = .2f;
     sf::Vector2f moveLeft(-movementSpeed, 0); //vector to modify sprite to the left
     sf::Vector2f moveRight(+movementSpeed, 0);  
     sf::Vector2f moveUp(0, -movementSpeed);
@@ -71,7 +71,7 @@ int main()
         return -1; // error loading music file
     }
     backgroundMusic.setLooping(true); // loop the music
-    backgroundMusic.setVolume(15.f); // optional
+    backgroundMusic.setVolume(10.f); // optional
     backgroundMusic.play();
 
     //jump sound
@@ -92,13 +92,10 @@ int main()
     float deathFallThreshold = 200.f; // distance that causes death 
     bool isDead = false;
 
+    //checkpoint for cloud level
+    float checkpointY = 375.f; // example value: lowest allowed position
+    bool checkpointReached = false;
 
-    //std::vector<CloudVehicle> clouds;
-
-    //// Example: spawn a few clouds at different positions/speeds
-    //clouds.emplace_back(sf::Vector2f(100.f, 700.f), 60.f);
-    //clouds.emplace_back(sf::Vector2f(300.f, 600.f), 40.f);
-    //clouds.emplace_back(sf::Vector2f(500.f, 500.f), 70.f);
 
     while (window.isOpen())
     {
@@ -108,7 +105,7 @@ int main()
         sf::Time deltaTime = clock.restart();
         float dt = deltaTime.asSeconds();
 
-
+        
         while (const std::optional event = window.pollEvent()) //this while loop handles closing window (i think...)
         {
             if (event->is<sf::Event::Closed>())
@@ -144,26 +141,36 @@ int main()
         }
 
         if (isJumping) {
-
             float currentY = characterForwardSprite.getPosition().y;
             if (currentY < maxJumpHeight) {
                 maxJumpHeight = currentY;
             }
 
             velocity.y += gravity * dt;
-            characterForwardSprite.move(sf::Vector2f(0.f, velocity.y * dt)); //gotta expicity case these a vectors, compiler thinks its a float...
-            if (characterForwardSprite.getPosition().y >= 820.f) {
 
-                float fallDistance = 820.f - maxJumpHeight; //if fall after jump is greater than max jump height -> death
+            // Predict the new Y position
+            float predictedY = characterForwardSprite.getPosition().y + velocity.y * dt;
+
+            // If checkpoint is reached and predicted position would go below it, clamp it
+            if (checkpointReached && predictedY > checkpointY) {
+                predictedY = checkpointY;
+                velocity.y = 0;      // stop falling
+                isJumping = false;   // treat as landed
+            }
+
+            characterForwardSprite.setPosition(sf::Vector2f(characterForwardSprite.getPosition().x, predictedY));
+
+            // Ground detection after jump
+            if (predictedY >= 820.f) {
+                float fallDistance = 820.f - maxJumpHeight;
                 if (fallDistance > deathFallThreshold) {
                     deathSound.play();
                     isDead = true;
                 }
 
-
                 characterForwardSprite.setPosition(sf::Vector2f(characterForwardSprite.getPosition().x, 820.f));
                 velocity.y = 0;
-                isJumping = false; //reset back to static position
+                isJumping = false;
             }
         }
 
@@ -219,10 +226,23 @@ int main()
         if (isDead) {
             //logic to save score and exit gameplay
             characterForwardSprite.setTexture(deadTexture);
-            //window.close();
+            window.waitEvent(sf::Time::Zero); //infinite pause?
         }
 
         sf::Vector2f pos = characterForwardSprite.getPosition();
+
+        // Trigger checkpoint when crossing the line going up
+        if (!checkpointReached && pos.y < checkpointY) {
+            checkpointReached = true;
+        }
+
+        // Clamp Y so player can't drop below once checkpoint is reached
+        if (checkpointReached && !isJumping && pos.y > checkpointY) {
+            pos.y = checkpointY;
+            characterForwardSprite.setPosition(pos);
+        }
+
+        
         auto bounds = characterForwardSprite.getGlobalBounds();
 
         // INSURE SPRITE CANT LEAVE CONSOLE
