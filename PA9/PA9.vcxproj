@@ -135,6 +135,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="cloudLarge.cpp" />
+    <ClCompile Include="cloudPlatform.cpp" />
+    <ClCompile Include="cloudSmall.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -147,8 +150,14 @@
     <Media Include="misato.mp3" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="character.h" />
+    <ClInclude Include="cloudLarge.h" />
+    <ClInclude Include="cloudMedium.h" />
+    <ClInclude Include="cloudMedium.cpp" />
     <ClInclude Include="cloudPlatform.h" />
     <ClInclude Include="header.h" />
+    <ClInclude Include="jetpack.h" />
+    <ClInclude Include="cloudSmall.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -18,6 +18,15 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="cloudPlatform.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="cloudSmall.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="cloudLarge.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="backgroundArt.PNG">
@@ -39,10 +48,28 @@
     </Media>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="header.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="jetpack.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
     <ClInclude Include="cloudPlatform.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="header.h">
+    <ClInclude Include="cloudSmall.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="cloudMedium.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="cloudMedium.cpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="cloudLarge.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="character.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
