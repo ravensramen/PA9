@@ -1,7 +1,7 @@
 #include "header.h"
 #include "character.h"
 #include "cloudSmall.h" //small clouds
-//#include "cloudMedium.h" //medium clouds
+#include "cloudMedium.h" //medium clouds
 #include "cloudLarge.h" //large clouds
 
 //create object class for cloud obstacles (with a derived class of more complex obstacles)
@@ -84,7 +84,7 @@ int main()
 
     //testing cloud platforms (start, end, speed, movement type)
     CloudSmall c1(sf::Vector2f(-35.f, 795.f), sf::Vector2f(700.f, 795.f), SLOW, HORIZONTAL);
-    //CloudMedium c2(sf::Vector2f(-70.f, 750.f), sf::Vector2f(735.f, 750.f), MEDIUM, HORIZONTAL);
+    CloudMedium c2(sf::Vector2f(-70.f, 750.f), sf::Vector2f(735.f, 750.f), MEDIUM, HORIZONTAL);
     CloudLarge c3(sf::Vector2f(-105.f, 710.f), sf::Vector2f(770.f, 710.f), FAST, HORIZONTAL);
     CloudSmall c4(sf::Vector2f(-35.f, 670.f), sf::Vector2f(700.f, 670.f), EXFAST, HORIZONTAL);
 
@@ -170,7 +170,7 @@ int main()
 
         //cloud updates (i'm sorry, i couldnt get the vector of platforms to work D;  they weren't even showing up for me)
         c1.update(dt);
-        //c2.update(dt);
+        c2.update(dt);
         c3.update(dt);
         c4.update(dt);
 
@@ -192,20 +192,20 @@ int main()
             }
         }
 
-        ////if the character's base is above the platform top (must be cast as int to check correctly [took me forever for me to realize (q_q) ])
-        //if ((int)characterForwardSprite.getPosition().y + 52 == (int)c2.getPosition().y - 1)
-        //{
-        //    //if the character's center is within the width of the platform
-        //    if (c2.getPosition().x < characterForwardSprite.getPosition().x + 21.f && characterForwardSprite.getPosition().x + 21.f < (c2.getPosition().x + c2.getSize().x))
-        //    {
-        //        isJumping = false; //without this the character falls through the platform after about 1 second
-        //        characterForwardSprite.setPosition(sf::Vector2f((characterForwardSprite.getPosition().x) + (c2.getVelocityX() * dt), c2.getPosition().y - 53.f));
-        //    }
-        //    else
-        //    {
-        //        isJumping = true; //without this the character just hangs out at the level of the platform even when they should fall
-        //    }
-        //}
+        //if the character's base is above the platform top (must be cast as int to check correctly [took me forever for me to realize (q_q) ])
+        if ((int)characterForwardSprite.getPosition().y + 52 == (int)c2.getPosition().y - 1)
+        {
+            //if the character's center is within the width of the platform
+            if (c2.getPosition().x < characterForwardSprite.getPosition().x + 21.f && characterForwardSprite.getPosition().x + 21.f < (c2.getPosition().x + c2.getSize().x))
+            {
+                isJumping = false; //without this the character falls through the platform after about 1 second
+                characterForwardSprite.setPosition(sf::Vector2f((characterForwardSprite.getPosition().x) + (c2.getVelocityX() * dt), c2.getPosition().y - 53.f));
+            }
+            else
+            {
+                isJumping = true; //without this the character just hangs out at the level of the platform even when they should fall
+            }
+        }
         //if the character's base is above the platform top (must be cast as int to check correctly [took me forever for me to realize (q_q) ])
         if ((int)characterForwardSprite.getPosition().y + 52 == (int)c3.getPosition().y - 1)
         {

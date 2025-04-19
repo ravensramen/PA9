@@ -27,6 +27,9 @@
     <ClCompile Include="cloudLarge.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="cloudMedium.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="backgroundArt.PNG">
@@ -61,9 +64,6 @@
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="cloudMedium.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="cloudMedium.cpp">
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="cloudLarge.h">
