@@ -74,6 +74,6 @@ CloudMedium::CloudMedium(sf::Vector2f startingPos, sf::Vector2f endingPos, int s
 	this->mPlatformVis.setPosition(startingPos);
 	this->mPlatformCol.setPosition({ startingPos.x, startingPos.y + 10.f });
 	//fill colors
-	this->mPlatformVis.setFillColor(sf::Color::Blue);
+	this->mPlatformVis.setFillColor(sf::Color::Transparent);
 	this->mPlatformCol.setFillColor(sf::Color::Cyan);
 }
