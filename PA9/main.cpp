@@ -9,7 +9,17 @@ int main()
     if (!backgroundArt.loadFromFile("backgroundArt.png")) {
         return -1; //return -1 if background image fails
     }
+    sf::Texture backgroundGameOver;
+    if (!backgroundGameOver.loadFromFile("backgroundGameover.PNG")) {
+        return -1;
+    }
+
     sf::Sprite backgroundArtSprite(backgroundArt);
+
+    sf::Texture rulesTexture;
+    if (!rulesTexture.loadFromFile("rulesPopup.png")) {
+        return -1;
+    }
 
     //set sprite player image
     sf::Texture forwardTexture, leftTexture, rightTexture, deadTexture;
@@ -101,6 +111,8 @@ int main()
             if (event->is<sf::Event::Closed>())
                 window.close();
         }
+
+        
 
         //movement input based on arrow key press (might modify to wasd?)
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::Left)) {
@@ -235,6 +247,7 @@ int main()
         }
 
         if (isDead) {
+            backgroundArtSprite.setTexture(backgroundGameOver); //set end screen 
             //logic to save score and exit gameplay
             characterForwardSprite.setTexture(deadTexture);
             //characterForwardSprite.move({0,10.f}); // lower a little, nvm it messes stuff up
@@ -280,8 +293,11 @@ int main()
         
         drawClouds(window, c1, c2, c3, c4, smallCloudTex, mediumCloudTex, largeCloudTex); 
         //^^ if you add more clouds, you need to change this function accordingly
+        // 
+        //showRulesPopup(window, rulesTexture); //display rules popup on opening 
 
         window.draw(characterForwardSprite); //character sprite called on top of background
         window.display();
+        
     }
 }

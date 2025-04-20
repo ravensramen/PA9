@@ -47,6 +47,12 @@
     <Image Include="deadSprite.png">
       <Filter>Source Files</Filter>
     </Image>
+    <Image Include="backgroundGameover.PNG">
+      <Filter>Source Files</Filter>
+    </Image>
+    <Image Include="rulesPopup.png">
+      <Filter>Source Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Media Include="misato.mp3">

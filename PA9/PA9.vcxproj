@@ -143,9 +143,11 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="backgroundArt.PNG" />
+    <Image Include="backgroundGameover.PNG" />
     <Image Include="deadSprite.png" />
     <Image Include="forwardSprite.png" />
     <Image Include="mediumCloud.png" />
+    <Image Include="rulesPopup.png" />
     <Image Include="smallCloud.PNG" />
   </ItemGroup>
   <ItemGroup>
