@@ -41,6 +41,9 @@
     <Image Include="mediumCloud.png">
       <Filter>Source Files</Filter>
     </Image>
+    <Image Include="smallCloud.PNG">
+      <Filter>Source Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Media Include="misato.mp3">

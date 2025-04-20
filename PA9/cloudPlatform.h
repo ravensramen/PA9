@@ -22,7 +22,9 @@ public:
 	void update(float dt);
 	void draw(sf::RenderWindow& window) const;
 
+
 protected:
+
 	sf::RectangleShape mPlatformVis;
 	sf::RectangleShape mPlatformCol;
 	sf::Vector2f mStartPos;

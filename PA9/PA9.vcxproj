@@ -145,6 +145,7 @@
     <Image Include="backgroundArt.PNG" />
     <Image Include="forwardSprite.png" />
     <Image Include="mediumCloud.png" />
+    <Image Include="smallCloud.PNG" />
   </ItemGroup>
   <ItemGroup>
     <Media Include="jump.wav" />

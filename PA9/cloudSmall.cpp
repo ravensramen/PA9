@@ -2,6 +2,7 @@
 
 CloudSmall::CloudSmall(sf::Vector2f startingPos, sf::Vector2f endingPos, int speedType, int moveType)
 {
+
 	//starting position
 	this->mStartPos.x = startingPos.x;
 	this->mStartPos.y = startingPos.y;
@@ -76,4 +77,5 @@ CloudSmall::CloudSmall(sf::Vector2f startingPos, sf::Vector2f endingPos, int spe
 	//fill colors
 	this->mPlatformVis.setFillColor(sf::Color::Blue);
 	this->mPlatformCol.setFillColor(sf::Color::Cyan);
+
 }

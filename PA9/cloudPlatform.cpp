@@ -12,6 +12,7 @@ CloudPlatform::CloudPlatform()
 	this->mSpeedType = 0;
 	this->mVelocityX = 0.f;
 	this->mVelocityY = 0.f;
+
 }
 
 //getters
@@ -100,6 +101,7 @@ void CloudPlatform::reverseVertical(void)
 
 void CloudPlatform::update(float dt)
 {
+
 	if (this->mMoveType == HORIZONTAL)
 	{
 		this->mPlatformVis.move({ this->mVelocityX * dt, 0.f });
@@ -115,7 +117,9 @@ void CloudPlatform::update(float dt)
 
 void CloudPlatform::draw(sf::RenderWindow& window) const
 {
+	
 	window.draw(this->mPlatformVis);
 	window.draw(this->mPlatformCol);
+
 }
 
