@@ -1,16 +1,9 @@
-#include "header.h"
 #include "character.h"
-#include "cloudSmall.h" //small clouds
-#include "cloudMedium.h" //medium clouds
-#include "cloudLarge.h" //large clouds
-
-//create object class for cloud obstacles (with a derived class of more complex obstacles)
-//^^similar, but with space obstacles 2
+#include "mainHelperFunctions.h" //includes cloud functions and a copy of the header 
 
 int main()
 {
     sf::RenderWindow window(sf::VideoMode({ 700, 900 }), "wip");
-
 
     sf::Texture backgroundArt;
     if (!backgroundArt.loadFromFile("backgroundArt.png")) {
@@ -26,6 +19,15 @@ int main()
         !rightTexture.loadFromFile("rightSprite.png") || !deadTexture.loadFromFile("deadSprite.png")) {
         return -1; // one or more files didn't load
     }
+    ///CLOUD TEXTURES
+    sf::Texture smallCloudTex, mediumCloudTex, largeCloudTex; 
+
+    if (!smallCloudTex.loadFromFile("smallCloud.PNG") ||
+        !mediumCloudTex.loadFromFile("mediumCloud.png") ||
+        !largeCloudTex.loadFromFile("largeCloud.png")) {
+        return -1;
+    }
+    ///
 
     //set vector position for start
     sf::Vector2f initialPosition;
@@ -274,36 +276,34 @@ int main()
 
         /////////DRAW CLOUDS AND CORESPONDING SPRITE IMAGES, 
 
-        //** im going to try to put this all in a helper function to simplify
-        //i wanted to put this in the platform + derived classes, but sprites dont work well with inheritance unfortunately
-        c1.draw(window);
-        //i tried doing this in a seperate function or integrating into cloud classes... to no avail :(
-        sf::Texture smallCloud;
-        smallCloud.loadFromFile("smallCloud.PNG");
-        sf::Sprite smallCloudSprite(smallCloud);
-        smallCloudSprite.setPosition({ c1.getPosition().x - 30,c1.getPosition().y - 25 });
-        window.draw(smallCloudSprite);
+        //c1.draw(window);
+       
+        //sf::Texture smallCloud;
+        //smallCloud.loadFromFile("smallCloud.PNG");
+        //sf::Sprite smallCloudSprite(smallCloud);
+        //smallCloudSprite.setPosition({ c1.getPosition().x - 30,c1.getPosition().y - 25 }); //placement adjustments to properly align images
+        //window.draw(smallCloudSprite);
 
-        c2.draw(window); 
-        sf::Texture mediumCloud;
-        mediumCloud.loadFromFile("mediumCloud.png");
-        sf::Sprite mediumCloudSprite(mediumCloud);
-        mediumCloudSprite.setPosition({ c2.getPosition().x-23,c2.getPosition().y-35});
-        window.draw(mediumCloudSprite);
+        //c2.draw(window); 
+        //sf::Texture mediumCloud;
+        //mediumCloud.loadFromFile("mediumCloud.png");
+        //sf::Sprite mediumCloudSprite(mediumCloud);
+        //mediumCloudSprite.setPosition({ c2.getPosition().x-23,c2.getPosition().y-35});
+        //window.draw(mediumCloudSprite);
 
-        c3.draw(window);
-        sf::Texture largeCloud;
-        largeCloud.loadFromFile("largeCloud.png");
-        sf::Sprite largeCloudSprite(largeCloud);
-        largeCloudSprite.setPosition({ c3.getPosition().x - 50,c3.getPosition().y - 55 });
-        window.draw(largeCloudSprite);
+        //c3.draw(window);
+        //sf::Texture largeCloud;
+        //largeCloud.loadFromFile("largeCloud.png");
+        //sf::Sprite largeCloudSprite(largeCloud);
+        //largeCloudSprite.setPosition({ c3.getPosition().x - 50,c3.getPosition().y - 55 });
+        //window.draw(largeCloudSprite);
 
-        c4.draw(window);
-        sf::Sprite smallCloudSpritec4(smallCloud);
-        smallCloudSpritec4.setPosition({ c4.getPosition().x - 30,c4.getPosition().y - 25 });
-        window.draw(smallCloudSpritec4);
-        ////im gonna rename + change/refit images, im just taking a break now lol
+        //c4.draw(window);
+        //sf::Sprite smallCloudSpritec4(smallCloud);
+        //smallCloudSpritec4.setPosition({ c4.getPosition().x - 30,c4.getPosition().y - 25 });
+        //window.draw(smallCloudSpritec4);
         
+        drawClouds(window, c1, c2, c3, c4, smallCloudTex, mediumCloudTex, largeCloudTex); 
 
         window.draw(characterForwardSprite); //character sprite called on top of background
         window.display();

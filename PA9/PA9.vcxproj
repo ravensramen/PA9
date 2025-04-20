@@ -159,6 +159,7 @@
     <ClInclude Include="header.h" />
     <ClInclude Include="jetpack.h" />
     <ClInclude Include="cloudSmall.h" />
+    <ClInclude Include="mainHelperFunctions.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

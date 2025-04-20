@@ -75,5 +75,8 @@
     <ClInclude Include="character.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="mainHelperFunctions.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
