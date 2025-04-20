@@ -143,6 +143,7 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="backgroundArt.PNG" />
+    <Image Include="deadSprite.png" />
     <Image Include="forwardSprite.png" />
     <Image Include="mediumCloud.png" />
     <Image Include="smallCloud.PNG" />

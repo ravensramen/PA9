@@ -17,7 +17,7 @@ void drawClouds(sf::RenderWindow& window,
     smallCloudSprite.setPosition({ c1.getPosition().x - 30, c1.getPosition().y - 25 });
     window.draw(smallCloudSprite);
 
-    // c2 - medium
+    // c2 - medium -> might need to make the sprite a litttle bit bigger
     c2.draw(window);
     sf::Sprite mediumCloudSprite(mediumCloudTex);
     mediumCloudSprite.setPosition({ c2.getPosition().x - 23, c2.getPosition().y - 35 });

@@ -39,7 +39,7 @@ int main()
 
 
     //code for key press movement
-    float movementSpeed = .7f; //had to speed up after adding clouds
+    float movementSpeed = .2f; //had to speed up after adding clouds
     sf::Vector2f moveLeft(-movementSpeed, 0); //vector to modify sprite to the left
     sf::Vector2f moveRight(+movementSpeed, 0);
     sf::Vector2f moveUp(0, -movementSpeed);
@@ -237,7 +237,11 @@ int main()
         if (isDead) {
             //logic to save score and exit gameplay
             characterForwardSprite.setTexture(deadTexture);
-            window.waitEvent(sf::Time::Zero); //infinite pause?
+            //characterForwardSprite.move({0,10.f}); // lower a little, nvm it messes stuff up
+            characterForwardSprite.setRotation(sf::Angle(sf::degrees(90))); //rotate sprite (so player lies horizontally)
+           // window.waitEvent(sf::Time::Zero); //infinite pause?
+
+            //ignore the floating up/glitching after, thats just because the loop doesnt actually end yet (it will cut to gameover eventually)
         }
 
         sf::Vector2f pos = characterForwardSprite.getPosition();
@@ -273,37 +277,9 @@ int main()
 
         window.clear();
         window.draw(backgroundArtSprite);
-
-        /////////DRAW CLOUDS AND CORESPONDING SPRITE IMAGES, 
-
-        //c1.draw(window);
-       
-        //sf::Texture smallCloud;
-        //smallCloud.loadFromFile("smallCloud.PNG");
-        //sf::Sprite smallCloudSprite(smallCloud);
-        //smallCloudSprite.setPosition({ c1.getPosition().x - 30,c1.getPosition().y - 25 }); //placement adjustments to properly align images
-        //window.draw(smallCloudSprite);
-
-        //c2.draw(window); 
-        //sf::Texture mediumCloud;
-        //mediumCloud.loadFromFile("mediumCloud.png");
-        //sf::Sprite mediumCloudSprite(mediumCloud);
-        //mediumCloudSprite.setPosition({ c2.getPosition().x-23,c2.getPosition().y-35});
-        //window.draw(mediumCloudSprite);
-
-        //c3.draw(window);
-        //sf::Texture largeCloud;
-        //largeCloud.loadFromFile("largeCloud.png");
-        //sf::Sprite largeCloudSprite(largeCloud);
-        //largeCloudSprite.setPosition({ c3.getPosition().x - 50,c3.getPosition().y - 55 });
-        //window.draw(largeCloudSprite);
-
-        //c4.draw(window);
-        //sf::Sprite smallCloudSpritec4(smallCloud);
-        //smallCloudSpritec4.setPosition({ c4.getPosition().x - 30,c4.getPosition().y - 25 });
-        //window.draw(smallCloudSpritec4);
         
         drawClouds(window, c1, c2, c3, c4, smallCloudTex, mediumCloudTex, largeCloudTex); 
+        //^^ if you add more clouds, you need to change this function accordingly
 
         window.draw(characterForwardSprite); //character sprite called on top of background
         window.display();
