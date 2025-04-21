@@ -28,7 +28,6 @@ int main()
     if (!rulesTexture.loadFromFile("rulesPopup.png")) {
         return -1;
     }
-    bool rulesShown = false; //bool so rules are only shown once (rather than every frame of gameplay loop)
 
     //set sprite player image
     sf::Texture forwardTexture, leftTexture, rightTexture, deadTexture;
@@ -125,8 +124,6 @@ int main()
             if (event->is<sf::Event::Closed>())
                 window.close();
         }
-
-       
 
         //movement input based on arrow key press (might modify to wasd?)
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::Left)) {
@@ -318,16 +315,14 @@ int main()
 
 
         if (isDead) {
-            window.clear(); //clear previous elements (gameplay before death)
-
-            backgroundArtSprite.setTexture(backgroundGameOver); //change background texture
+            backgroundArtSprite.setTexture(backgroundGameOver); //set end screen 
+            //logic to save score and exit gameplay
             characterForwardSprite.setTexture(deadTexture);
+            //characterForwardSprite.move({0,10.f}); // lower a little, nvm it messes stuff up
             characterForwardSprite.setRotation(sf::Angle(sf::degrees(90))); //rotate sprite (so player lies horizontally)
-            
-            //draw end screen elements
-            window.draw(backgroundArtSprite);
-            window.draw(characterForwardSprite);
-            showGameOver(window);
+            // window.waitEvent(sf::Time::Zero); //infinite pause?
+
+             //ignore the floating up/glitching after, thats just because the loop doesnt actually end yet (it will cut to gameover eventually)
         }
 
         sf::Vector2f pos = characterForwardSprite.getPosition();
@@ -363,12 +358,6 @@ int main()
 
         window.clear();
         window.draw(backgroundArtSprite);
-        if (rulesShown == false) {
-            showRulesPopup(window, rulesTexture);
-            rulesShown = true;
-        }
-        
-
 
         /////////DRAW CLOUDS AND CORRESPONDING SPRITE IMAGES, 
         

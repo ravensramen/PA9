@@ -68,6 +68,9 @@
     <Image Include="jetpack.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="gameoverScreen.PNG">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="header.h">

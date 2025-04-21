@@ -1,0 +1,37 @@
+#pragma once
+#include "hazard.h"
+
+class asteroidHazard : public hazard
+{
+public:
+	asteroidHazard(sf::Vector2f startingPos); //horizontal movement
+};
+
+
+
+
+
+
+#pragma once
+#include "hazard.h"
+
+class meteorHazard : public hazard
+{
+public:
+	meteorHazard(float startingXPos); //vertical movement from top to bottom
+};
+
+
+
+
+
+
+#pragma once
+#include "hazard.h"
+
+class starHazard : public hazard
+{
+public:
+	starHazard(sf::Vector2f startingPos, int LeftorRight); //diagonal movement top to bottom
+};
+

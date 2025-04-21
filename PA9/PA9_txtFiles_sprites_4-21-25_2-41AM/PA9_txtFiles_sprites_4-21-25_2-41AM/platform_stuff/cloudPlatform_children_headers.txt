@@ -1,0 +1,39 @@
+#pragma once
+#include "cloudPlatform.h"
+
+class CloudSmall : public CloudPlatform
+{
+public:
+	CloudSmall(sf::Vector2f startingPos, sf::Vector2f endingPos, int speedType = 0, int moveType = 0);
+	void resetPos(void);
+};
+
+
+
+
+
+
+#pragma once
+#include "cloudPlatform.h"
+
+class CloudMedium : public CloudPlatform
+{
+public:
+	CloudMedium(sf::Vector2f startingPos, sf::Vector2f endingPos, int speedType = 0, int moveType = 0);
+	void resetPos(void);
+};
+
+
+
+
+
+
+#pragma once
+#include "cloudPlatform.h"
+
+class CloudLarge : public CloudPlatform
+{
+public:
+	CloudLarge(sf::Vector2f startingPos, sf::Vector2f endingPos, int speedType = 0, int moveType = 0);
+	void resetPos(void);
+};

@@ -12,7 +12,7 @@ void showRulesPopup(sf::RenderWindow& window, const sf::Texture& rulesTexture)
 
     bool waitingForEnter = true;
     while (waitingForEnter) {
-       
+      
  
 
         // Check if Enter key is pressed
@@ -22,4 +22,14 @@ void showRulesPopup(sf::RenderWindow& window, const sf::Texture& rulesTexture)
             return;
         }
     }
+}
+
+void showGameOver(sf::RenderWindow& window) {
+    sf::Texture gameoverTexture("gameoverScreen.PNG");
+    sf::Sprite gameoverPopup(gameoverTexture);
+
+    window.draw(gameoverPopup);
+    window.display();
+
+    sf::sleep(sf::seconds(100)); //change! display indefintely (idk how yet... ;;)
 }

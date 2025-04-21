@@ -150,6 +150,7 @@
     <Image Include="backgroundArt.png" />
     <Image Include="deadSprite.png" />
     <Image Include="forwardSprite.png" />
+    <Image Include="gameoverScreen.PNG" />
     <Image Include="jetpack.png" />
     <Image Include="leftSprite.png" />
     <Image Include="mediumCloud.png" />
