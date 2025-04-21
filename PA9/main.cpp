@@ -28,6 +28,7 @@ int main()
     if (!rulesTexture.loadFromFile("rulesPopup.png")) {
         return -1;
     }
+    bool rulesShown = false; //bool so rules are only shown once (rather than every frame of gameplay loop)
 
     //set sprite player image
     sf::Texture forwardTexture, leftTexture, rightTexture, deadTexture;
@@ -124,6 +125,8 @@ int main()
             if (event->is<sf::Event::Closed>())
                 window.close();
         }
+
+       
 
         //movement input based on arrow key press (might modify to wasd?)
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::Left)) {
@@ -358,6 +361,12 @@ int main()
 
         window.clear();
         window.draw(backgroundArtSprite);
+        if (rulesShown == false) {
+            showRulesPopup(window, rulesTexture);
+            rulesShown = true;
+        }
+        
+
 
         /////////DRAW CLOUDS AND CORRESPONDING SPRITE IMAGES, 
         
