@@ -18,74 +18,107 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="cloudPlatform.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="cloudSmall.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="cloudLarge.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="cloudMedium.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="cloudLarge.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="cloudPlatform.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="hazard.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="asteroidHazard.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="meteorHazard.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="starHazard.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="jetpack.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="backgroundArt.PNG">
-      <Filter>Source Files</Filter>
-    </Image>
     <Image Include="forwardSprite.png">
-      <Filter>Source Files</Filter>
+      <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="mediumCloud.png">
-      <Filter>Source Files</Filter>
+    <Image Include="leftSprite.png">
+      <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="smallCloud.PNG">
-      <Filter>Source Files</Filter>
+    <Image Include="rightSprite.png">
+      <Filter>Resource Files</Filter>
     </Image>
     <Image Include="deadSprite.png">
-      <Filter>Source Files</Filter>
+      <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="backgroundGameover.PNG">
-      <Filter>Source Files</Filter>
+    <Image Include="mediumCloud.png">
+      <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="rulesPopup.png">
-      <Filter>Source Files</Filter>
+    <Image Include="backgroundArt.png">
+      <Filter>Resource Files</Filter>
     </Image>
-  </ItemGroup>
-  <ItemGroup>
-    <Media Include="misato.mp3">
-      <Filter>Source Files</Filter>
-    </Media>
-    <Media Include="jump.wav">
-      <Filter>Source Files</Filter>
-    </Media>
+    <Image Include="jetpack.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="header.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="jetpack.h">
-      <Filter>Source Files</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="cloudPlatform.h">
-      <Filter>Source Files</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="cloudSmall.h">
-      <Filter>Source Files</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="cloudMedium.h">
-      <Filter>Source Files</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="cloudLarge.h">
-      <Filter>Source Files</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="character.h">
-      <Filter>Source Files</Filter>
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="hazard.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="jetpack.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="starHazard.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="meteorHazard.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="asteroidHazard.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="flyingObject.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="mainHelperFunctions.h">
-      <Filter>Source Files</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="death.mp3">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="jump.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="misato.mp3">
+      <Filter>Resource Files</Filter>
+    </Media>
   </ItemGroup>
 </Project>

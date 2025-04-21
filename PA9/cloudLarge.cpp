@@ -67,13 +67,28 @@ CloudLarge::CloudLarge(sf::Vector2f startingPos, sf::Vector2f endingPos, int spe
 		}
 	}break;
 	}
+	//auto velocity adjustment for right->left movement
+	if (this->mStartPos.x > 0)
+	{
+		this->mVelocityX *= -1;
+	}
 	//size of platform
-	this->mPlatformVis.setSize({ 105.f, 20.f });
-	this->mPlatformCol.setSize({ 105.f, 1.f });
+	this->mPlatformVis.setSize({ 226.f, 104.f });
+	this->mPlatformCol.setSize({ 191.f, 1.f });
 	//set starting position of platform
 	this->mPlatformVis.setPosition(startingPos);
-	this->mPlatformCol.setPosition({ startingPos.x, startingPos.y + 10.f });
-	//fill colors
-	this->mPlatformVis.setFillColor(sf::Color::Transparent);
+	this->mPlatformCol.setPosition({ startingPos.x + 24.f, startingPos.y + 58.f });
+	//texture
+	if (this->mTexture.loadFromFile("largeCloud.png"))
+	{
+		this->mPlatformVis.setTexture(&this->mTexture);
+	}
+	//fill color
 	this->mPlatformCol.setFillColor(sf::Color::Cyan);
+}
+
+void CloudLarge::resetPos(void)
+{
+	this->mPlatformCol.setPosition({ this->mStartPos.x + 24.f, this->mStartPos.y + 58.f });
+	this->mPlatformVis.setPosition(this->mStartPos);
 }

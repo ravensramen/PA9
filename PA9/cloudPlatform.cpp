@@ -12,23 +12,12 @@ CloudPlatform::CloudPlatform()
 	this->mSpeedType = 0;
 	this->mVelocityX = 0.f;
 	this->mVelocityY = 0.f;
-
 }
 
 //getters
 const sf::RectangleShape& CloudPlatform::getCollisionShape() const
 {
 	return this->mPlatformCol;
-}
-
-float CloudPlatform::getVelocityX(void) const
-{
-	return this->mVelocityX;
-}
-
-float CloudPlatform::getVelocityY(void) const
-{
-	return this->mVelocityY;
 }
 
 sf::Vector2f CloudPlatform::getPosition(void) const
@@ -45,9 +34,19 @@ void CloudPlatform::atEndReset(void)
 {
 	if (this->mMoveType == HORIZONTAL)
 	{
-		if (this->mEndPos.x < this->mPlatformVis.getPosition().x)
+		if (this->mStartPos.x < 0)
 		{
-			resetPos();
+			if (this->mEndPos.x < this->mPlatformVis.getPosition().x)
+			{
+				resetPos();
+			}
+		}
+		else
+		{
+			if (this->mEndPos.x > this->mPlatformVis.getPosition().x)
+			{
+				resetPos();
+			}
 		}
 	}
 	else if (this->mMoveType == VERTICAL)
@@ -99,9 +98,8 @@ void CloudPlatform::reverseVertical(void)
 	this->mVelocityY *= -1;
 }
 
-void CloudPlatform::update(float dt)
+void CloudPlatform::update(float dt) 
 {
-
 	if (this->mMoveType == HORIZONTAL)
 	{
 		this->mPlatformVis.move({ this->mVelocityX * dt, 0.f });
@@ -117,9 +115,7 @@ void CloudPlatform::update(float dt)
 
 void CloudPlatform::draw(sf::RenderWindow& window) const
 {
-	
 	window.draw(this->mPlatformVis);
 	window.draw(this->mPlatformCol);
-
 }
 

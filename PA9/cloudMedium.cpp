@@ -67,13 +67,28 @@ CloudMedium::CloudMedium(sf::Vector2f startingPos, sf::Vector2f endingPos, int s
 		}
 	}break;
 	}
+	//auto velocity adjustment for right->left movement
+	if (this->mStartPos.x > 0)
+	{
+		this->mVelocityX *= -1;
+	}
 	//size of platform
-	this->mPlatformVis.setSize({ 70.f, 20.f });
-	this->mPlatformCol.setSize({ 70.f, 1.f });
+	this->mPlatformVis.setSize({ 119.f, 80.f });
+	this->mPlatformCol.setSize({ 97.f, 1.f });
 	//set starting position of platform
 	this->mPlatformVis.setPosition(startingPos);
-	this->mPlatformCol.setPosition({ startingPos.x, startingPos.y + 10.f });
-	//fill colors
-	this->mPlatformVis.setFillColor(sf::Color::Transparent);
+	this->mPlatformCol.setPosition({ startingPos.x + 12.f, startingPos.y + 50.f });
+	//texture
+	if (this->mTexture.loadFromFile("mediumCloud.png"))
+	{
+		this->mPlatformVis.setTexture(&this->mTexture);
+	}
+	//fill color
 	this->mPlatformCol.setFillColor(sf::Color::Cyan);
+}
+
+void CloudMedium::resetPos(void)
+{
+	this->mPlatformCol.setPosition({ this->mStartPos.x + 12.f, this->mStartPos.y + 50.f });
+	this->mPlatformVis.setPosition(this->mStartPos);
 }

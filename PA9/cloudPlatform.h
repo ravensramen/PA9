@@ -1,20 +1,18 @@
 #pragma once
-#include "header.h"
+#include "flyingObject.h"
 
-class CloudPlatform
+class CloudPlatform : public flyingObject
 {
 public:
 	CloudPlatform();
 
 	const sf::RectangleShape& getCollisionShape() const;
-	float getVelocityX(void) const;
-	float getVelocityY(void) const;
 	sf::Vector2f getPosition(void) const;
 	sf::Vector2f getSize(void) const;
 
 	void atEndReset(void);
 	void startOrEndReverse(void);
-	void resetPos(void);
+	virtual void resetPos(void);
 	void reverseDirection(void);
 	void reverseHorizontal(void);
 	void reverseVertical(void);
@@ -22,15 +20,8 @@ public:
 	void update(float dt);
 	void draw(sf::RenderWindow& window) const;
 
-
 protected:
-
 	sf::RectangleShape mPlatformVis;
 	sf::RectangleShape mPlatformCol;
-	sf::Vector2f mStartPos;
-	sf::Vector2f mEndPos;
-	int mMoveType;
-	int mSpeedType;
-	float mVelocityX;
-	float mVelocityY;
+	sf::Texture mTexture;
 };

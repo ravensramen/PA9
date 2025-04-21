@@ -4,5 +4,6 @@
 class CloudLarge : public CloudPlatform
 {
 public:
-	CloudLarge(sf::Vector2f startingPos, sf::Vector2f endingPos, int speedType, int moveType);
+	CloudLarge(sf::Vector2f startingPos, sf::Vector2f endingPos, int speedType = 0, int moveType = 0);
+	void resetPos(void);
 };

@@ -1,5 +1,13 @@
-#include "character.h"
 #include "mainHelperFunctions.h" //includes cloud functions and a copy of the header 
+#include "character.h"
+#include "cloudSmall.h" //small clouds
+#include "cloudMedium.h" //medium clouds
+#include "cloudLarge.h" //large clouds
+#include "meteorHazard.h" //meteors (vertical)
+#include "asteroidHazard.h" //asteroids (horizontal)
+#include "starHazard.h" //stars (diagonal downward)
+#include "jetpack.h" //jetpack item
+
 
 int main()
 {
@@ -29,15 +37,6 @@ int main()
         !rightTexture.loadFromFile("rightSprite.png") || !deadTexture.loadFromFile("deadSprite.png")) {
         return -1; // one or more files didn't load
     }
-    ///CLOUD TEXTURES
-    sf::Texture smallCloudTex, mediumCloudTex, largeCloudTex; 
-
-    if (!smallCloudTex.loadFromFile("smallCloud.PNG") ||
-        !mediumCloudTex.loadFromFile("mediumCloud.png") ||
-        !largeCloudTex.loadFromFile("largeCloud.png")) {
-        return -1;
-    }
-    ///
 
     //set vector position for start
     sf::Vector2f initialPosition;
@@ -49,7 +48,7 @@ int main()
 
 
     //code for key press movement
-    float movementSpeed = .2f; //had to speed up after adding clouds
+    float movementSpeed = .7f; //had to speed up after adding clouds
     sf::Vector2f moveLeft(-movementSpeed, 0); //vector to modify sprite to the left
     sf::Vector2f moveRight(+movementSpeed, 0);
     sf::Vector2f moveUp(0, -movementSpeed);
@@ -82,7 +81,7 @@ int main()
     sf::SoundBuffer deathBuffer;
     if (!deathBuffer.loadFromFile("death.mp3")) return -1;
     sf::Sound deathSound(deathBuffer);
-    deathSound.setVolume(80.f);
+    deathSound.setVolume(40.f);
 
     //falling death conditions
     float maxJumpHeight = 820.f; // initial ground height
@@ -93,12 +92,26 @@ int main()
     float checkpointY = 375.f; // example value: lowest allowed position
     bool checkpointReached = false;
 
+    //the jetpack!
+    jetpack j1;
 
-    //testing cloud platforms (start, end, speed, movement type)
-    CloudSmall c1(sf::Vector2f(-35.f, 795.f), sf::Vector2f(700.f, 795.f), SLOW, HORIZONTAL);
-    CloudMedium c2(sf::Vector2f(-70.f, 750.f), sf::Vector2f(735.f, 750.f), MEDIUM, HORIZONTAL);
-    CloudLarge c3(sf::Vector2f(-105.f, 710.f), sf::Vector2f(770.f, 710.f), FAST, HORIZONTAL);
-    CloudSmall c4(sf::Vector2f(-35.f, 670.f), sf::Vector2f(700.f, 670.f), EXFAST, HORIZONTAL);
+    //hazards (you die when you touch them)
+    // 
+    //meteor (x axis input only)
+    meteorHazard m1(10.f);
+    //asteroid (horizontal movement, needs start point)
+    asteroidHazard a1(sf::Vector2f(-35.f, 100.f));
+    asteroidHazard a2(sf::Vector2f(675.f, 250.f));
+    //shooting star (needs start and diagonal direction)
+    starHazard s1(sf::Vector2f(200.f, 0.f), RIGHT);
+    starHazard s2(sf::Vector2f(500.f, 0.f), LEFT);
+
+    //cloud platforms (start, end, speed, movement type)
+    CloudSmall c1(sf::Vector2f(-94.f, 760.f), sf::Vector2f(700.f, 760.f), SLOW, HORIZONTAL);
+    CloudMedium c2(sf::Vector2f(735.f, 670.f), sf::Vector2f(-105.f, 670.f), SLOW, HORIZONTAL);
+    CloudLarge c3(sf::Vector2f(-226.f, 580.f), sf::Vector2f(770.f, 580.f), SLOW, HORIZONTAL);
+    CloudSmall c4(sf::Vector2f(-94.f, 530.f), sf::Vector2f(700.f, 530.f), SLOW, HORIZONTAL);
+    CloudMedium c5(sf::Vector2f(735.f, 470.f), sf::Vector2f(-105.f, 470.f), SLOW, HORIZONTAL);
 
 
     while (window.isOpen())
@@ -111,8 +124,6 @@ int main()
             if (event->is<sf::Event::Closed>())
                 window.close();
         }
-
-        
 
         //movement input based on arrow key press (might modify to wasd?)
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::Left)) {
@@ -176,25 +187,35 @@ int main()
             }
         }
 
-        //-----------------------------character platform interaction---------------------------
+        //hazard updates
+        m1.update(dt);
+        a1.update(dt);
+        a2.update(dt);
+        s1.update(dt);
+        s2.update(dt);
 
-        //cloud updates (i'm sorry, i couldnt get the vector of platforms to work D;  they weren't even showing up for me)
+        //cloud updates
         c1.update(dt);
         c2.update(dt);
         c3.update(dt);
         c4.update(dt);
+        c5.update(dt);
+
+        //-----------------------------character platform interaction---------------------------
 
         //NOTE: this should work as an array in a loop as well. (currently checking from lowest cloud to the highest cloud, in that order)
         //The only thing changing in this code is the name of the cloud (c1, c2, c3, etc...)
 
          //if the character's base is above the platform top (must be cast as int to check correctly [took me forever for me to realize (q_q) ])
-        if ((int)characterForwardSprite.getPosition().y + 52 == (int)c1.getPosition().y - 1)
+        if ((int)characterForwardSprite.getPosition().y + (characterForwardSprite.getTextureRect().size.y) == (int)c1.getPosition().y - 1)
         {
             //if the character's center is within the width of the platform
-            if (c1.getPosition().x < characterForwardSprite.getPosition().x + 21.f && characterForwardSprite.getPosition().x + 21.f < (c1.getPosition().x + c1.getSize().x))
+            if (c1.getPosition().x < characterForwardSprite.getPosition().x + (characterForwardSprite.getTextureRect().size.x / 2) && 
+                characterForwardSprite.getPosition().x + (characterForwardSprite.getTextureRect().size.x / 2) < (c1.getPosition().x + c1.getSize().x))
             {
                 isJumping = false; //without this the character falls through the platform after about 1 second
-                characterForwardSprite.setPosition(sf::Vector2f((characterForwardSprite.getPosition().x) + (c1.getVelocityX() * dt), c1.getPosition().y - 53.f));
+                characterForwardSprite.setPosition(sf::Vector2f((characterForwardSprite.getPosition().x) + (c1.getVelocityX() * dt), 
+                    c1.getPosition().y - ((characterForwardSprite.getTextureRect().size.y) + 1)));
             }
             else
             {
@@ -203,13 +224,15 @@ int main()
         }
 
         //if the character's base is above the platform top (must be cast as int to check correctly [took me forever for me to realize (q_q) ])
-        if ((int)characterForwardSprite.getPosition().y + 52 == (int)c2.getPosition().y - 1)
+        if ((int)characterForwardSprite.getPosition().y + (characterForwardSprite.getTextureRect().size.y) == (int)c2.getPosition().y - 1)
         {
             //if the character's center is within the width of the platform
-            if (c2.getPosition().x < characterForwardSprite.getPosition().x + 21.f && characterForwardSprite.getPosition().x + 21.f < (c2.getPosition().x + c2.getSize().x))
+            if (c2.getPosition().x < characterForwardSprite.getPosition().x + (characterForwardSprite.getTextureRect().size.x / 2) && 
+                characterForwardSprite.getPosition().x + (characterForwardSprite.getTextureRect().size.x / 2) < (c2.getPosition().x + c2.getSize().x))
             {
                 isJumping = false; //without this the character falls through the platform after about 1 second
-                characterForwardSprite.setPosition(sf::Vector2f((characterForwardSprite.getPosition().x) + (c2.getVelocityX() * dt), c2.getPosition().y - 53.f));
+                characterForwardSprite.setPosition(sf::Vector2f((characterForwardSprite.getPosition().x) + (c2.getVelocityX() * dt), 
+                    c2.getPosition().y - ((characterForwardSprite.getTextureRect().size.y) + 1)));
             }
             else
             {
@@ -217,13 +240,15 @@ int main()
             }
         }
         //if the character's base is above the platform top (must be cast as int to check correctly [took me forever for me to realize (q_q) ])
-        if ((int)characterForwardSprite.getPosition().y + 52 == (int)c3.getPosition().y - 1)
+        if ((int)characterForwardSprite.getPosition().y + (characterForwardSprite.getTextureRect().size.y) == (int)c3.getPosition().y - 1)
         {
             //if the character's center is within the width of the platform
-            if (c3.getPosition().x < characterForwardSprite.getPosition().x + 21.f && characterForwardSprite.getPosition().x + 21.f < (c3.getPosition().x + c3.getSize().x))
+            if (c3.getPosition().x < characterForwardSprite.getPosition().x + (characterForwardSprite.getTextureRect().size.x / 2) &&
+                characterForwardSprite.getPosition().x + (characterForwardSprite.getTextureRect().size.x / 2) < (c3.getPosition().x + c3.getSize().x))
             {
                 isJumping = false; //without this the character falls through the platform after about 1 second
-                characterForwardSprite.setPosition(sf::Vector2f((characterForwardSprite.getPosition().x) + (c3.getVelocityX() * dt), c3.getPosition().y - 53.f));
+                characterForwardSprite.setPosition(sf::Vector2f((characterForwardSprite.getPosition().x) + (c3.getVelocityX() * dt), 
+                    c3.getPosition().y - ((characterForwardSprite.getTextureRect().size.y) + 1)));
             }
             else
             {
@@ -232,19 +257,62 @@ int main()
         }
 
         //if the character's base is above the platform top (must be cast as int to check correctly [took me forever for me to realize (q_q) ])
-        if ((int)characterForwardSprite.getPosition().y + 52 == (int)c4.getPosition().y - 1)
+        if ((int)characterForwardSprite.getPosition().y + (characterForwardSprite.getTextureRect().size.y) == (int)c4.getPosition().y - 1)
         {
             //if the character's center is within the width of the platform
-            if (c4.getPosition().x < characterForwardSprite.getPosition().x + 21.f && characterForwardSprite.getPosition().x + 21.f < (c4.getPosition().x + c4.getSize().x))
+            if (c4.getPosition().x < characterForwardSprite.getPosition().x + (characterForwardSprite.getTextureRect().size.x / 2) &&
+                characterForwardSprite.getPosition().x + (characterForwardSprite.getTextureRect().size.x / 2) < (c4.getPosition().x + c4.getSize().x))
             {
                 isJumping = false; //without this the character falls through the platform after about 1 second
-                characterForwardSprite.setPosition(sf::Vector2f((characterForwardSprite.getPosition().x) + (c4.getVelocityX() * dt), c4.getPosition().y - 53.f));
+                characterForwardSprite.setPosition(sf::Vector2f((characterForwardSprite.getPosition().x) + (c4.getVelocityX() * dt), 
+                    c4.getPosition().y - ((characterForwardSprite.getTextureRect().size.y) + 1)));
             }
             else
             {
                 isJumping = true; //without this the character just hangs out at the level of the platform even when they should fall
             }
         }
+
+        //if the character's base is above the platform top (must be cast as int to check correctly [took me forever for me to realize (q_q) ])
+        if ((int)characterForwardSprite.getPosition().y + (characterForwardSprite.getTextureRect().size.y) == (int)c5.getPosition().y - 1)
+        {
+            //if the character's center is within the width of the platform
+            if (c5.getPosition().x < characterForwardSprite.getPosition().x + (characterForwardSprite.getTextureRect().size.x / 2) &&
+                characterForwardSprite.getPosition().x + (characterForwardSprite.getTextureRect().size.x / 2) < (c5.getPosition().x + c5.getSize().x))
+            {
+                isJumping = false; //without this the character falls through the platform after about 1 second
+                characterForwardSprite.setPosition(sf::Vector2f((characterForwardSprite.getPosition().x) + (c5.getVelocityX() * dt), 
+                    c5.getPosition().y - ((characterForwardSprite.getTextureRect().size.y) + 1)));
+            }
+            else
+            {
+                isJumping = true; //without this the character just hangs out at the level of the platform even when they should fall
+            }
+        }
+
+        //touch a hazard and you die
+        //once again somethig that can probably be put in some kind of loop to check each one
+        if (characterForwardSprite.getGlobalBounds().findIntersection(m1.getCollisionShape().getGlobalBounds()))
+        {
+            isDead = true;
+        }
+        if (characterForwardSprite.getGlobalBounds().findIntersection(a1.getCollisionShape().getGlobalBounds()))
+        {
+            isDead = true;
+        }
+        if (characterForwardSprite.getGlobalBounds().findIntersection(a2.getCollisionShape().getGlobalBounds()))
+        {
+            isDead = true;
+        }
+        if (characterForwardSprite.getGlobalBounds().findIntersection(s1.getCollisionShape().getGlobalBounds()))
+        {
+            isDead = true;
+        }
+        if (characterForwardSprite.getGlobalBounds().findIntersection(s2.getCollisionShape().getGlobalBounds()))
+        {
+            isDead = true;
+        }
+
 
         if (isDead) {
             backgroundArtSprite.setTexture(backgroundGameOver); //set end screen 
@@ -252,9 +320,9 @@ int main()
             characterForwardSprite.setTexture(deadTexture);
             //characterForwardSprite.move({0,10.f}); // lower a little, nvm it messes stuff up
             characterForwardSprite.setRotation(sf::Angle(sf::degrees(90))); //rotate sprite (so player lies horizontally)
-           // window.waitEvent(sf::Time::Zero); //infinite pause?
+            // window.waitEvent(sf::Time::Zero); //infinite pause?
 
-            //ignore the floating up/glitching after, thats just because the loop doesnt actually end yet (it will cut to gameover eventually)
+             //ignore the floating up/glitching after, thats just because the loop doesnt actually end yet (it will cut to gameover eventually)
         }
 
         sf::Vector2f pos = characterForwardSprite.getPosition();
@@ -290,14 +358,27 @@ int main()
 
         window.clear();
         window.draw(backgroundArtSprite);
+
+        /////////DRAW CLOUDS AND CORRESPONDING SPRITE IMAGES, 
         
-        drawClouds(window, c1, c2, c3, c4, smallCloudTex, mediumCloudTex, largeCloudTex); 
-        //^^ if you add more clouds, you need to change this function accordingly
-        // 
-        //showRulesPopup(window, rulesTexture); //display rules popup on opening 
+        //draw cloud platforms
+        c1.draw(window);
+        c2.draw(window);
+        c3.draw(window);
+        c4.draw(window);
+        c5.draw(window);
+
+        //draw hazard
+        m1.draw(window);
+        a1.draw(window);
+        a2.draw(window);
+        s1.draw(window);
+        s2.draw(window);
+
+        //draw jetpack
+        j1.draw(window);
 
         window.draw(characterForwardSprite); //character sprite called on top of background
         window.display();
-        
     }
 }

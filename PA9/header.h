@@ -12,3 +12,6 @@
 #define EXFAST 4
 #define HORIZONTAL 1
 #define VERTICAL 2
+#define DIAGONAL 3
+#define LEFT 1
+#define RIGHT 2

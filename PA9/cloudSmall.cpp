@@ -2,7 +2,6 @@
 
 CloudSmall::CloudSmall(sf::Vector2f startingPos, sf::Vector2f endingPos, int speedType, int moveType)
 {
-
 	//starting position
 	this->mStartPos.x = startingPos.x;
 	this->mStartPos.y = startingPos.y;
@@ -68,14 +67,28 @@ CloudSmall::CloudSmall(sf::Vector2f startingPos, sf::Vector2f endingPos, int spe
 		}
 	}break;
 	}
+	//auto velocity adjustment for right->left movement
+	if (this->mStartPos.x > 0)
+	{
+		this->mVelocityX *= -1;
+	}
 	//size of platform
-	this->mPlatformVis.setSize({ 35.f, 20.f });
-	this->mPlatformCol.setSize({ 35.f, 1.f });
+	this->mPlatformVis.setSize({ 94.f, 54.f });
+	this->mPlatformCol.setSize({ 70.f, 1.f });
 	//set starting position of platform
 	this->mPlatformVis.setPosition(startingPos);
-	this->mPlatformCol.setPosition({ startingPos.x, startingPos.y + 10.f });
-	//fill colors
-	this->mPlatformVis.setFillColor(sf::Color::Transparent);
+	this->mPlatformCol.setPosition({ startingPos.x + 16.f, startingPos.y + 32.f });
+	//texture
+	if (this->mTexture.loadFromFile("smallCloud.png"))
+	{
+		this->mPlatformVis.setTexture(&this->mTexture);
+	}
+	//fill color
 	this->mPlatformCol.setFillColor(sf::Color::Cyan);
+}
 
+void CloudSmall::resetPos(void)
+{
+	this->mPlatformCol.setPosition({ this->mStartPos.x + 16.f, this->mStartPos.y + 32.f });
+	this->mPlatformVis.setPosition(this->mStartPos);
 }
