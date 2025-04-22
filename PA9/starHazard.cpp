@@ -14,13 +14,14 @@ starHazard::starHazard(sf::Vector2f startingPos, int LeftorRight)
 		this->mVelocityX = -250.f; //fast
 	}
 	this->mVelocityY = 250.f;
-	this->mHazard.setRadius(5.f);
+	this->mHazard.setRadius(10.f);
 	this->mHazard.setPosition(this->mStartPos);
 	//texture
-	//if (this->mTexture.loadFromFile(""))
-	//{
-	//	this->mHazard.setTexture(&this->mTexture);
-	//}
-	this->mHazard.setFillColor(sf::Color::Cyan);
-	this->mEndPos = (sf::Vector2f(0.f, 400.f - this->mHazard.getRadius() * 2));
+	if (this->mTexture.loadFromFile("starHazard.png"))
+	{
+		this->mHazard.setTexture(&this->mTexture);
+	}
+	//this->mHazard.setFillColor(sf::Color::Cyan);
+	this->mEndPos = (sf::Vector2f(0.f, 400.f - this->mHazard.getRadius()));
 }
+

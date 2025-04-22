@@ -14,19 +14,18 @@ jetpack::jetpack()
 	//this->mJetpackItem.setFillColor(sf::Color::Green);
 }
 
-bool jetpack::isPickedUp(const bool yesOrNo)
+bool jetpack::isPickedUp(void)
 {
-	if (this->mPosition.x != 339.f && this->mPosition.y != 401.f)
+	if (this->mJetpackItem.getFillColor() == sf::Color::Transparent)
 	{
 		return true;
 	}
 	return false;
 }
 
-//move it off the map when it's picked up
 void jetpack::pickUp(void)
 {
-	this->mPosition.x = 800.f;
+	this->mJetpackItem.setFillColor(sf::Color::Transparent);
 }
 
 void jetpack::draw(sf::RenderWindow& window) const

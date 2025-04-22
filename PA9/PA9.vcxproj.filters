@@ -112,6 +112,12 @@
     <ClInclude Include="mainHelperFunctions.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="goal.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="testCases.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Media Include="death.mp3">

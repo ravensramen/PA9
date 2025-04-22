@@ -163,6 +163,7 @@
     <ClInclude Include="cloudMedium.h" />
     <ClInclude Include="cloudSmall.h" />
     <ClInclude Include="flyingObject.h" />
+    <ClInclude Include="goal.h" />
     <ClInclude Include="hazard.h" />
     <ClInclude Include="header.h" />
     <ClInclude Include="cloudPlatform.h" />
@@ -170,6 +171,7 @@
     <ClInclude Include="mainHelperFunctions.h" />
     <ClInclude Include="meteorHazard.h" />
     <ClInclude Include="starHazard.h" />
+    <ClInclude Include="testCases.h" />
   </ItemGroup>
   <ItemGroup>
     <Media Include="death.mp3" />

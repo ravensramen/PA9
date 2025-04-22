@@ -4,5 +4,5 @@
 class meteorHazard : public hazard
 {
 public:
-	meteorHazard(float startingXPos); //vertical movement from top to bottom
+	meteorHazard(sf::Vector2f startingPos); //vertical movement from top to bottom
 };

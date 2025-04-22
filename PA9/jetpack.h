@@ -9,7 +9,7 @@ public:
 	sf::Vector2f getPosition(void) const { return this->mJetpackItem.getPosition(); }
 	sf::FloatRect getGlobalBounds(void) const { return this->mJetpackItem.getGlobalBounds(); }
 
-	bool isPickedUp(const bool yesOrNo);
+	bool isPickedUp(void);
 	void pickUp(void);
 	void draw(sf::RenderWindow& window) const;
 private:
