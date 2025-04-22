@@ -84,7 +84,7 @@ CloudSmall::CloudSmall(sf::Vector2f startingPos, sf::Vector2f endingPos, int spe
 		this->mPlatformVis.setTexture(&this->mTexture);
 	}
 	//fill color
-	this->mPlatformCol.setFillColor(sf::Color::Cyan);
+	this->mPlatformCol.setFillColor(sf::Color::Transparent);
 }
 
 void CloudSmall::resetPos(void)

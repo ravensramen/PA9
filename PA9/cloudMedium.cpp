@@ -84,7 +84,7 @@ CloudMedium::CloudMedium(sf::Vector2f startingPos, sf::Vector2f endingPos, int s
 		this->mPlatformVis.setTexture(&this->mTexture);
 	}
 	//fill color
-	this->mPlatformCol.setFillColor(sf::Color::Cyan);
+	this->mPlatformCol.setFillColor(sf::Color::Transparent);
 }
 
 void CloudMedium::resetPos(void)

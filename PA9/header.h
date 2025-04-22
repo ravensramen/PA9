@@ -1,5 +1,5 @@
 #pragma once
-//preprocessor directives for main and classes
+//preprocessor directives and macros for main and classes
 
 #include <iostream>
 #include <SFML/Graphics.hpp>

@@ -86,16 +86,16 @@ void TEST_CLOUD_RESET_POSITION(void) {
 		std::cout << "CLOUD RESET POSITION FUNCTION TEST FAILED";
 	}
 }
-
-int main(int argc, char* argv[]) {
-
-	TEST_PLANET_RANDOMIZATION();
-	TEST_STAR_HAZARD_DIRECTIONALITY();
-	TEST_CLOUD_MOVEMENT();
-	TEST_METEOR_MOVEMENT();
-	TEST_CLOUD_RESET_POSITION();
-
-
-
-	return 1;
-}
+//
+//int main(int argc, char* argv[]) {
+//
+//	TEST_PLANET_RANDOMIZATION();
+//	TEST_STAR_HAZARD_DIRECTIONALITY();
+//	TEST_CLOUD_MOVEMENT();
+//	TEST_METEOR_MOVEMENT();
+//	TEST_CLOUD_RESET_POSITION();
+//
+//
+//
+//	return 1;
+//}
