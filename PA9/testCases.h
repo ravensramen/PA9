@@ -1,13 +1,4 @@
-#include "mainHelperFunctions.h" //includes cloud functions and a copy of the header 
-#include "character.h"
-#include "cloudSmall.h" //small clouds
-#include "cloudMedium.h" //medium clouds
-#include "cloudLarge.h" //large clouds
-#include "meteorHazard.h" //meteors (vertical)
-#include "asteroidHazard.h" //asteroids (horizontal)
-#include "starHazard.h" //stars (diagonal downward)
-#include "jetpack.h" //jetpack item
-#include "goal.h" //the goal
+#include "classesInclude.h";
 
 //test random of planet generation
 void TEST_PLANET_RANDOMIZATION(void) {
@@ -19,6 +10,8 @@ void TEST_PLANET_RANDOMIZATION(void) {
 	else { //if planets not spawned in same region/spawned in random region 
 		std::cout << "PLANET/GOAL RANDOMIZATION FAILED";
 	}
+
+	std::cout << std::endl;
 
 }
 
@@ -32,6 +25,7 @@ void TEST_STAR_HAZARD_DIRECTIONALITY(void) {
 	if (testStar1.getVelocityX() == testStar2.getVelocityY()) {
 		std::cout << "TEST_STAR_HAZARD_DIRECTIONALITY TEST PASSED";
 	}
+	std::cout << std::endl;
 }
 
 void TEST_CLOUD_MOVEMENT(void) {
@@ -48,6 +42,7 @@ void TEST_CLOUD_MOVEMENT(void) {
 	else {
 		std::cout << "TEST CLOUD MOVEMENT TEST FAILED";
 	}
+	std::cout << std::endl;
 }
 
 void TEST_METEOR_MOVEMENT(void) {
@@ -67,6 +62,7 @@ void TEST_METEOR_MOVEMENT(void) {
 	else {
 		std::cout << "TEST METEOR MOVEMENT TEST FAILED";
 	}
+	std::cout << std::endl;
 }
 
 void TEST_CLOUD_RESET_POSITION(void) {
@@ -85,17 +81,5 @@ void TEST_CLOUD_RESET_POSITION(void) {
 	else{
 		std::cout << "CLOUD RESET POSITION FUNCTION TEST FAILED";
 	}
+	std::cout << std::endl;
 }
-//
-//int main(int argc, char* argv[]) {
-//
-//	TEST_PLANET_RANDOMIZATION();
-//	TEST_STAR_HAZARD_DIRECTIONALITY();
-//	TEST_CLOUD_MOVEMENT();
-//	TEST_METEOR_MOVEMENT();
-//	TEST_CLOUD_RESET_POSITION();
-//
-//
-//
-//	return 1;
-//}

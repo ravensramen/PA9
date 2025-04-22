@@ -118,6 +118,9 @@
     <ClInclude Include="testCases.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="classesInclude.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Media Include="death.mp3">

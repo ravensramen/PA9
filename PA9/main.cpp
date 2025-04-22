@@ -1,17 +1,15 @@
-#include "mainHelperFunctions.h" //includes cloud functions and a copy of the header 
-#include "character.h"
-#include "cloudSmall.h" //small clouds
-#include "cloudMedium.h" //medium clouds
-#include "cloudLarge.h" //large clouds
-#include "meteorHazard.h" //meteors (vertical)
-#include "asteroidHazard.h" //asteroids (horizontal)
-#include "starHazard.h" //stars (diagonal downward)
-#include "jetpack.h" //jetpack item
-#include "goal.h" //the goal
-
-
+#include "classesInclude.h";
+//#include "testCases.h";
 int main()
 {
+    ////TEST CASES
+    //TEST_PLANET_RANDOMIZATION();
+    //TEST_STAR_HAZARD_DIRECTIONALITY();
+    //TEST_CLOUD_MOVEMENT();
+    //TEST_METEOR_MOVEMENT();
+    //TEST_CLOUD_RESET_POSITION();
+    ////
+
     int keepPlaying = 1;
     while (keepPlaying)
     {
