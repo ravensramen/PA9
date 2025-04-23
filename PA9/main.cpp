@@ -15,7 +15,7 @@ int main()
     {
         std::srand((int)std::time(0)); //for random
 
-        sf::RenderWindow window(sf::VideoMode({ 700, 900 }), "wip");
+        sf::RenderWindow window(sf::VideoMode({ 700, 900 }), "Space Hopper");
 
         sf::Texture backgroundArt;
         if (!backgroundArt.loadFromFile("backgroundArt.png")) {
@@ -449,6 +449,7 @@ int main()
                 if (!j1.isPickedUp())
                 {
                     characterForwardSprite.setTexture(deadTexture, true);
+                    characterForwardSprite.move(sf::Vector2f(0,+10.f)); //lower dead texture a little, otherwise it may float
                 }
                 else if (j1.isPickedUp())
                 {
