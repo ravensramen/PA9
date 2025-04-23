@@ -22,3 +22,5 @@ https://youtu.be/Y8bSsRVr3Yg?si=KgU7PHT-e_gwmf4C
 
 death.mp3
 https://youtu.be/xYJ63OTMDL4?si=pCSinR4bZpkC_0kg
+
+All art created by Elizabeth and Sydnee
