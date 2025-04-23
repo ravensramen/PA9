@@ -1,4 +1,5 @@
 #include "classesInclude.h";
+//if testing, comment out "classesInclude.h" in main to avoid redefinition errors
 
 //test if cloud platforms move as time passes
 void TEST_CLOUD_MOVEMENT(void) {

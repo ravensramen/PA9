@@ -88,9 +88,6 @@
     <ClInclude Include="cloudLarge.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="character.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="hazard.h">
       <Filter>Header Files</Filter>
     </ClInclude>

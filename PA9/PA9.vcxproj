@@ -158,7 +158,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="asteroidHazard.h" />
-    <ClInclude Include="character.h" />
     <ClInclude Include="classesInclude.h" />
     <ClInclude Include="cloudLarge.h" />
     <ClInclude Include="cloudMedium.h" />
