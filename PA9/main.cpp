@@ -1,14 +1,14 @@
-#include "classesInclude.h";
-//#include "testCases.h";
+//#include "classesInclude.h";
+#include "testCases.h";
 int main()
 {
-    ////TEST CASES
-    //TEST_PLANET_RANDOMIZATION();
-    //TEST_STAR_HAZARD_DIRECTIONALITY();
-    //TEST_CLOUD_MOVEMENT();
-    //TEST_METEOR_MOVEMENT();
-    //TEST_CLOUD_RESET_POSITION();
-    ////
+    //TEST CASES
+    TEST_PLANET_RANDOMIZATION();
+    TEST_STAR_HAZARD_DIRECTIONALITY();
+    TEST_CLOUD_MOVEMENT();
+    TEST_METEOR_MOVEMENT();
+    TEST_CLOUD_RESET_POSITION();
+    //
 
     int keepPlaying = 1;
     while (keepPlaying)
