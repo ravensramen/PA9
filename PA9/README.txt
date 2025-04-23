@@ -15,10 +15,12 @@ The goal is to reach the planet at the top without dying.
 Sources:
 
 misato.mp3
-source here
+https://youtu.be/Ren7-Pzw6Uo?si=lVFZUgKFEuNqNY65
 
 jump.wav
-source here
+https://youtu.be/Y8bSsRVr3Yg?si=KgU7PHT-e_gwmf4C
 
 death.mp3
-source here
+https://youtu.be/xYJ63OTMDL4?si=pCSinR4bZpkC_0kg
+
+All art created by Elizabeth and Sydnee
